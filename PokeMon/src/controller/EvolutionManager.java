@@ -1,12 +1,9 @@
 package controller;
 
-import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 
 import model.dao.PokemonDao;
 import model.vo.Pokemon;
-import model.vo.Recovery;
 import model.vo.User;
 
 public class EvolutionManager {
@@ -16,10 +13,6 @@ public class EvolutionManager {
 	
 	private int evoHP = 50;
 	private int evoSpeed = 10;
-	
-	/*public EvolutionManager(User user) {
-		this.user = user;
-	}*/
 	
 	public EvolutionManager(User user, Pokemon poke) {
 		
@@ -39,6 +32,10 @@ public class EvolutionManager {
 		poke.setpMaxHp(poke.getpMaxHp() + evoHP);
 		poke.setpSpeed(poke.getpSpeed() + evoSpeed);
 		poke.setGrade(poke.getGrade() -1);
+		poke.setpEvoType(evoP.ispEvoType());
+		
+		System.out.println(poke.getpName() + poke.getpNo());
+		System.out.println(poke.ispEvoType());
 		
 		JOptionPane.showMessageDialog(null, beforePName + "이/가 " + evoP.getpName() + "으로 진화했습니다.", "진화성공", JOptionPane.WARNING_MESSAGE);
 	}
