@@ -37,6 +37,23 @@ public void setpMaxHp(int pMaxHp) {
 
 
    public Pokemon() {}
+   
+   public Pokemon(Pokemon p) {
+	   this.pName = p.pName;
+	      this.pNo = p.pNo;
+	      this.pLevel = p.pLevel;
+	      this.pType = p.pType;
+	      this.pHp = p.pHp;
+	      this.pSpeed = p.pSpeed;
+	      this.pItem = p.pItem;
+	      this.pEvoType = p.pEvoType;
+	      this.grade = p.grade;
+	      this.exp = p.exp;
+	      this.pMaxExp = p.pMaxExp;
+	      this.setExp = p.setExp;
+	      this.pSkill = p.pSkill;
+	      this.pMaxHp = p.pMaxHp;
+   }
 
 
 
