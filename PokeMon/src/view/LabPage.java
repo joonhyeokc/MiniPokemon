@@ -10,6 +10,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,7 +25,9 @@ import org.w3c.dom.views.AbstractView;
 
 import controller.MCManager;
 import model.dao.PokemonDao;
+import model.dao.SkillDao;
 import model.vo.Pokemon;
+import model.vo.Skill;
 import model.vo.User;
 
 public class LabPage extends JPanel {
@@ -34,9 +38,12 @@ public class LabPage extends JPanel {
 	private Map m;
 	private JButton backButton = new JButton(new ImageIcon("images/maketViewImages/marketViewBack.png"));
 	private PokemonDao pd = new PokemonDao();
+	private SkillDao sd = new SkillDao();
+	
 	   
 	private User user;
 	private int count = 1;
+	private int count2 = 0;
 	private boolean select = false;
 	
 	
@@ -50,13 +57,13 @@ public class LabPage extends JPanel {
 		String[] talkList = new String[4];
 		talkList[0] = "안녕! " + user.getuName() + ". 환영하네.";
 		talkList[1] = "밖은 위험하니까 포켓몬 한 마리를 데려가도록 하게.";
-		talkList[2] = "포켓몬은 총 세마리일세. 포켓몬을 고르면 다시 불러주게.";
+		talkList[2] = "포켓몬은 총 세마리일세. 포켓몬을 고르면 다시 말을 걸어주게.";
 		talkList[3] = "(박사는 당신을 기다리고 있다.)";
 		
 		//포켓몬 선택 후 박사 대화창
 		String[] talkList2 = new String[2];
 		talkList2[0] = "좋은 포켓몬을 골랐군! 앞으로 잘 키워주길 바라네.";
-		talkList2[1] = "이제 마을 밖으로 나가봐도 좋네. 가는 길에 상점도 들러보면 좋겠지.";
+		talkList2[1] = "이제 마을 밖으로 나가봐도 좋네. 가는 길에 상점도 둘러보도록.";
 		
 	    JTextField tTf = new JTextField(40);
 	    tTf.setOpaque(false);
@@ -68,24 +75,38 @@ public class LabPage extends JPanel {
 	    tTf.setEditable(false);
 	    tTf.setHorizontalAlignment(JTextField.CENTER);
 	    tTf.setFont(new Font("돋움체", Font.BOLD, 25));
-	   // tTf.setForeground(Color.white);
-	   // tTf.setBackground(Color.black);
+
 	    temp.add(tTf);
 	    
-	    
+	    ArrayList<Skill> pSkill = (ArrayList<Skill>) sd.getsList();
 	    //스타팅 포켓몬 정보
 	    int pNo = 0;
 	    Pokemon[] poke = new Pokemon[3];
 	    for(int i = 0; i < poke.length; i++) {
 	    	poke[i] = pd.getpList().get(pNo);
+	    	poke[i].setpLevel(5);
 	    	poke[i].setpHp(150);
 	    	poke[i].setpMaxHp(150);
-	    	poke[i].setpLevel(5);
-	    	poke[i].setGrade(3);
 	    	poke[i].setpSpeed(20);
+	    	poke[i].setGrade(3);
+	    	poke[i].setpMaxExp(50);
 	    	
+	    	//포켓몬 스킬정의
+	    	while(poke[i].getpSkill().size() < 5) {
+	    		int random = new Random().nextInt(17)+1;
+	    		int ctn = new Random().nextInt(2);
+	    		
+	    		if(poke[i].getpType() == sd.getsList().get(random).getsType() || sd.getsList().get(random).getsType() == 0) {
+	    			if(ctn == 0) {
+	    				poke[i].getpSkill().add(pSkill.get(random));
+	    			}else {
+	    				poke[i].getpSkill().add(pSkill.get(random));
+	    			}
+	    		}
+	    	}
 	    	pNo += 3;
 	    }
+	    
 	    
 	    //스타팅 포켓몬 이미지 = 이상해씨(1), 파이리(4), 꼬부기(7)
 	    ImageIcon[] pStartList = new ImageIcon[3];
@@ -104,8 +125,6 @@ public class LabPage extends JPanel {
 	    
 	    }
 	    
-	    
-	    //★선택시 set인거 add로 변경해야함.
 	    pStart[0].addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent e) {}
@@ -201,12 +220,10 @@ public class LabPage extends JPanel {
 				}
 				
 				if(select == true) {
-					System.out.println(select);
-					count = 0;
-					if(count < talkList2.length) {
+					if(count2 < talkList2.length) {
 						tTf.remove(tTf);
-						tTf.setText(talkList2[count]);
-						count++;
+						tTf.setText(talkList2[count2]);
+						count2++;
 					}
 				}
 			}
@@ -233,7 +250,6 @@ public class LabPage extends JPanel {
 		});
 		
 		this.add(backButton);
-		//this.add(tTf);
 		this.add(temp);
 				
 		this.setBackground(Color.white);
