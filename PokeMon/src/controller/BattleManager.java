@@ -217,7 +217,8 @@ public class BattleManager {
 	      //적 포켓몬리스트 초기화
 	      user.getEp_list().clear();
 	      //새로운 적 포켓몬 생성
-	      user.getEp_list().add(r_List.get(randomP));
+	      Pokemon poke = new Pokemon(r_List.get(randomP));
+	      user.getEp_list().add(poke);
 
 	      int randomLevel = user.getUp_list().get(0).getpLevel() +( new Random().nextInt(3));
 	      //0217-02 user.getEp_list().set(0, pd.getpList().get(randomIndex));
@@ -560,30 +561,40 @@ public class BattleManager {
 
 	public JPanel changeBP(MainFrame mf,JPanel bp, PInfoPage pip ,User user) {
 		this.panel = (BattlePage) bp;
-		this.pip = pip;
+	      this.pip = pip;
 
+	      if(user.getUp_list().size() == 1) {
+	         JOptionPane.showMessageDialog(null, "가진 포켓몬이 모두 쓰러졌습니다.", "전투 불가", 0);
+	         mf.remove(bp);
+	         ((BattlePage) bp).getM().setVisible(true);
+	         ((BattlePage) bp).getM().setCantMove(false);
+	         mf.requestFocus();
 
-		int result = JOptionPane.showConfirmDialog(null, "필드의 포켓몬의 체력이 없습니다 교체하세요", "포켓몬 교체",JOptionPane.YES_NO_OPTION);
-		if(result == 0) {
-			for(int i=1; i<user.getUp_list().size(); i++) {
-				if(user.getUp_list().get(i).getpHp() > 0) {
-					panel.setVisible(false);
-					pip = new PInfoPage(mf,bp,user);
-					pip.setVisible(true);
-					mf.add(pip);
-					break;
-				}else {
-					mf.remove(bp);
-					((BattlePage) bp).getM().setVisible(true);
-					((BattlePage) bp).getM().setCantMove(false);
-					mf.requestFocus();
-					
-				}
-			}
-		}
+	      }else {
 
-		return panel;
-	}
+	         int result = JOptionPane.showConfirmDialog(null, "필드의 포켓몬의 체력이 없습니다 교체하세요", "포켓몬 교체",JOptionPane.YES_NO_OPTION);
+	         if(result == 0) {
+	            for(int i=1; i<user.getUp_list().size(); i++) {
+	               if(user.getUp_list().get(i).getpHp() > 0) {
+	                  panel.setVisible(false);
+	                  pip = new PInfoPage(mf,bp,user);
+	                  pip.setVisible(true);
+	                  mf.add(pip);
+	                  break;
+	               }else {
+	                  JOptionPane.showMessageDialog(null, "가진 포켓몬이 모두 쓰러졌습니다.", "전투 불가", 0);
+	                  mf.remove(bp);
+	                  ((BattlePage) bp).getM().setVisible(true);
+	                  ((BattlePage) bp).getM().setCantMove(false);
+	                  mf.requestFocus();
+
+	               }
+	            }
+	         }
+	      }
+
+	      return panel;
+	   }
 	
 	
 	//NPC 포켓몬 교체
@@ -613,9 +624,10 @@ public class BattleManager {
 	//경험치 획득
 	public void battleEnd(User user) {
 		System.out.println("승리! 경험치를 " + user.getEp_list().get(0).getSetExp() + "만큼 얻었습니다!");
-		user.getUp_list().get(0).setExp(user.getUp_list().get(0).getExp() + user.getEp_list().get(0).getSetExp());
-		System.out.println("현재경험치 : " + user.getUp_list().get(0).getExp());
-		lm.levelup(user);
+	      user.getUp_list().get(0).setExp(user.getUp_list().get(0).getExp() + user.getEp_list().get(0).getSetExp());
+	      System.out.println("현재경험치 : " + user.getUp_list().get(0).getExp());
+	      JOptionPane.showMessageDialog(null, "포켓몬을 쓰러뜨렸다!", "전투 승리", 0);
+	      lm.levelup(user);
 
 	}
 	//배틀 페이지 체력

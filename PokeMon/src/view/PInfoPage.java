@@ -112,7 +112,9 @@ public class PInfoPage extends JPanel{
             @Override
             public void mousePressed(MouseEvent e) {
                //선택된 포켓몬 이름
-               bm.changeP(mf,oldPage, user, user.getUp_list().get(0));
+            	if(user.getUp_list().size()>=1) {
+            		bm.changeP(mf,oldPage, user, user.getUp_list().get(0));
+            	}
             }
          });
          pInfo[1].addMouseListener(new MouseAdapter() {
@@ -126,7 +128,9 @@ public class PInfoPage extends JPanel{
             }
             @Override
             public void mousePressed(MouseEvent e) {
-               bm.changeP(mf,oldPage, user, user.getUp_list().get(1));
+            	if(user.getUp_list().size()>=2) {
+            		bm.changeP(mf,oldPage, user, user.getUp_list().get(1));
+            	}
             }
          });
          pInfo[2].addMouseListener(new MouseAdapter() {
@@ -140,8 +144,9 @@ public class PInfoPage extends JPanel{
             }
             @Override
             public void mousePressed(MouseEvent e) {
-               bm.changeP(mf,oldPage, user, user.getUp_list().get(2));
-
+            	if(user.getUp_list().size()>=3) {
+            		bm.changeP(mf,oldPage, user, user.getUp_list().get(2));
+            	}
             }
          });
          pInfo[3].addMouseListener(new MouseAdapter() {
@@ -155,7 +160,9 @@ public class PInfoPage extends JPanel{
             }
             @Override
             public void mousePressed(MouseEvent e) {
-               bm.changeP(mf,oldPage, user, user.getUp_list().get(3));
+            	if(user.getUp_list().size()>=4) {
+            		bm.changeP(mf,oldPage, user, user.getUp_list().get(3));
+            	}
             }
          });
       //}

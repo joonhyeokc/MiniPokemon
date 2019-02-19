@@ -315,7 +315,7 @@ public class BattlePage extends JPanel implements Runnable{
 			ennum = (user.getEp_list().get(0).getpHp()/(double)user.getEp_list().get(0).getpMaxHp())*10;//50 / 100 = 5
 			enfnum = 10-ennum;																	//5
 			value = (int)(12*enfnum);																	//60
-			g.fillRect(125, 97, 130 - seth , 10);
+			g.fillRect(125, 97, 130 - value , 10);
 
 			Image enHp = Toolkit.getDefaultToolkit().getImage("images/battleViewImg/ªÛ¥ÎHPπŸ.png");
 			g.drawImage(enHp, 0, 30, 300, 100, this);
