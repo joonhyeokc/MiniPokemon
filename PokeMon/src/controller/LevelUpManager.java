@@ -32,6 +32,7 @@ public class LevelUpManager {
          user.getUp_list().get(0).setpSpeed((int)(pSpeed*1.1));
          System.out.println("레벨 업 후 수치 : " + maxHp + ", "+ pSpeed);
          
+         
       }
       
    }

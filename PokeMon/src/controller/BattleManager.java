@@ -622,7 +622,6 @@ public class BattleManager {
 	   
 	   
 	
-
 	//경험치 획득
 	public void battleEnd(User user) {
 		System.out.println("승리! 경험치를 " + user.getEp_list().get(0).getSetExp() + "만큼 얻었습니다!");
