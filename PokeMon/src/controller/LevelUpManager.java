@@ -24,13 +24,13 @@ public class LevelUpManager {
       
       if(exp >= maxexp) {
          System.out.println("레벨업!!");
-         System.out.println("레벨 업 전 수치 : " + level + exp + maxexp + maxHp + pSpeed);
+         System.out.println("레벨 업 전 수치 : " + level + ", "+ exp + ", "+ maxexp + ", "+ maxHp + ", "+ pSpeed);
          user.getUp_list().get(0).setpLevel(level+1);
          user.getUp_list().get(0).setExp(0);
          user.getUp_list().get(0).setpMaxHp((int)(maxHp*1.2));
          user.getUp_list().get(0).setpMaxExp((int)(maxexp*1.2));
          user.getUp_list().get(0).setpSpeed((int)(pSpeed*1.1));
-         System.out.println("레벨 업 후 수치 : " + maxHp + pSpeed);
+         System.out.println("레벨 업 후 수치 : " + maxHp + ", "+ pSpeed);
          
       }
       

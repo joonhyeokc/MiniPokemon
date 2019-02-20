@@ -46,6 +46,7 @@ public class BattleManager {
 	private int ctn;
 	private UserInvenPage uivp;
 	private LevelUpManager lm = new LevelUpManager();
+	private Music m_vill = new Music("hit.mp3", false);
 	
 	
 	
@@ -233,6 +234,7 @@ public class BattleManager {
 		user.getEp_list().get(0).setpHp(50);
 		user.getEp_list().get(0).setpSpeed(randomLevel);
 		user.getEp_list().get(0).setpMaxHp(50);
+		user.getEp_list().get(0).setSetExp(30);
 		
 		/*int randomMaxHP = new Random().nextInt(21)+30;
 		for(int i = 0; i < randomLevel; i++) {
@@ -300,7 +302,7 @@ public class BattleManager {
 		this.mf = mf;
 		System.out.println("배틀");
 		
-		
+		m_vill.start();
 		
 		System.out.println("적 HP : " + user.getEp_list().get(0).getpHp());
 		System.out.println("내 HP : " + user.getUp_list().get(0).getpHp());
@@ -627,6 +629,8 @@ public class BattleManager {
 	      user.getUp_list().get(0).setExp(user.getUp_list().get(0).getExp() + user.getEp_list().get(0).getSetExp());
 	      System.out.println("현재경험치 : " + user.getUp_list().get(0).getExp());
 	      JOptionPane.showMessageDialog(null, "포켓몬을 쓰러뜨렸다!", "전투 승리", 0);
+	      m_vill = new Music("ggo.mp3", false);
+	      m_vill.start();
 	      lm.levelup(user);
 
 	}
